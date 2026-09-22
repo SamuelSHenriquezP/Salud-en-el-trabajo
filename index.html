@@ -7304,7 +7304,7 @@
         while (angleDiff > Math.PI) angleDiff -= Math.PI * 2;
         this.player.angle += angleDiff * 0.15;
 
-        const currentTool = (window.sstUI && window.sstUI.currentTool) || 'tablet';
+        const currentTool = (sstUI && sstUI.currentTool) || 'tablet';
 
         this.nearestHazard = null;
         this.nearbyUndetectedHazard = null;
@@ -7415,7 +7415,7 @@
 
         sstGraphics.drawEnvironment(this.ctx, this.worldWidth, this.worldHeight, time);
 
-        const currentTool = (window.sstUI && window.sstUI.currentTool) || 'tablet';
+        const currentTool = (sstUI && sstUI.currentTool) || 'tablet';
         this.hazards.forEach(hazard => {
           const isNear = (hazard === this.nearestHazard);
           sstGraphics.drawHazard(this.ctx, hazard, time, isNear, currentTool);
