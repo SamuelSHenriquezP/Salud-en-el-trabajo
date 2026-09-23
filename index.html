@@ -1192,93 +1192,182 @@
     .report-feedback.silver { background: var(--safety-yellow-soft); border-left: 3px solid var(--safety-yellow); }
     .report-feedback.disaster { background: var(--hazard-red-soft); border-left: 3px solid var(--hazard-red); }
 
-    /* CONTROLES MÓVILES ADAPTATIVOS DE ALTA ERGONOMÍA */
+    /* ═══ CONTROLES MÓVILES TÁCTILES ERGONÓMICOS ═══ */
+
+    /* Barra inferior fija */
     #mobile-controls {
       display: none;
-      position: absolute;
-      bottom: max(16px, env(safe-area-inset-bottom, 16px));
-      left: max(14px, env(safe-area-inset-left, 14px));
-      right: max(14px, env(safe-area-inset-right, 14px));
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 130px;
+      padding: 12px 14px;
+      padding-bottom: max(12px, env(safe-area-inset-bottom, 12px));
       z-index: 35;
       pointer-events: none;
       justify-content: space-between;
       align-items: flex-end;
+      gap: 0;
+      background: linear-gradient(to top, rgba(6,10,18,0.85) 0%, transparent 100%);
+    }
+
+    /* Zona joystick */
+    #joystick-zone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      pointer-events: none;
+    }
+
+    .joystick-hint {
+      font-family: var(--font-display);
+      font-size: 8px;
+      font-weight: 700;
+      color: rgba(148,163,184,0.5);
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     #joystick-base {
-      width: 104px;
-      height: 104px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
-      background: rgba(15, 23, 42, 0.78);
-      border: 2px solid rgba(56, 189, 248, 0.35);
+      background: rgba(6,10,18,0.8);
+      border: 2px solid rgba(56,189,248,0.35);
       position: relative;
       pointer-events: auto;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: inset 0 0 16px rgba(56, 189, 248, 0.15), 0 8px 26px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       touch-action: none;
       -webkit-user-select: none;
       user-select: none;
     }
 
-    #joystick-thumb {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+    #joystick-ring {
       position: absolute;
-      top: 30px;
-      left: 30px;
-      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+      inset: 10px;
+      border-radius: 50%;
+      border: 1px dashed rgba(56,189,248,0.2);
       pointer-events: none;
-      transition: transform 0.05s ease-out;
     }
 
-    #btn-mobile-action {
-      position: relative;
-      width: 74px;
-      height: 74px;
+    #joystick-thumb {
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
-      background: rgba(15, 23, 42, 0.84);
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      color: #94a3b8;
+      background: radial-gradient(circle at 35% 35%, #67e8f9, #0284c7);
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 4px 14px rgba(56,189,248,0.5);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      will-change: transform;
+    }
+
+    /* Zona derecha: rueda + acción */
+    #mobile-right-controls {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    /* Rueda 2×2 */
+    #mobile-tool-wheel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      pointer-events: auto;
+    }
+
+    .mobile-tool-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(6,10,18,0.85);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      transition: all 0.12s ease;
+    }
+
+    .mobile-tool-btn .mobile-tool-icon { font-size: 16px; line-height: 1; }
+
+    .mobile-tool-btn.active {
+      background: rgba(56,189,248,0.2);
+      border-color: rgba(56,189,248,0.7);
+      box-shadow: 0 0 8px rgba(56,189,248,0.4);
+    }
+
+    .mobile-tool-btn:active { transform: scale(0.88); }
+
+    /* Botón acción */
+    #btn-mobile-action {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: rgba(6,10,18,0.85);
+      border: 2.5px solid rgba(255,255,255,0.15);
+      color: #64748b;
       font-family: var(--font-display);
       font-weight: 800;
-      font-size: 9px;
-      letter-spacing: 0.5px;
+      font-size: 8.5px;
+      letter-spacing: 0.3px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
+      gap: 4px;
       pointer-events: auto;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
-      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
       touch-action: manipulation;
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.18s cubic-bezier(0.34,1.56,0.64,1);
       -webkit-tap-highlight-color: transparent;
     }
 
-    #btn-mobile-action:active {
-      transform: scale(0.92);
-    }
+    #btn-mobile-action #mobile-action-icon { font-size: 24px; line-height: 1; }
+    #btn-mobile-action:active { transform: scale(0.9); }
 
     #btn-mobile-action.ready {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      border-color: #fef08a;
+      background: radial-gradient(circle at 40% 35%, #fbbf24, #d97706);
+      border-color: rgba(251,191,36,0.9);
       color: #0f172a;
-      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.35), 0 8px 24px rgba(245, 158, 11, 0.55);
-      animation: actionPulse 1.2s infinite alternate;
+      box-shadow: 0 0 0 5px rgba(245,158,11,0.3), 0 8px 24px rgba(245,158,11,0.6);
+      animation: actionPulse 1.1s infinite alternate;
+    }
+
+    #btn-mobile-action.locked {
+      background: radial-gradient(circle at 40% 35%, #c084fc, #7c3aed) !important;
+      border-color: rgba(168,85,247,0.9) !important;
+      color: #fff !important;
+      box-shadow: 0 0 0 5px rgba(168,85,247,0.25), 0 8px 24px rgba(147,51,234,0.5) !important;
     }
 
     @keyframes actionPulse {
-      from { transform: scale(1); }
-      to { transform: scale(1.08); }
+      from { box-shadow: 0 0 0 5px rgba(245,158,11,0.3), 0 8px 24px rgba(245,158,11,0.6); }
+      to   { box-shadow: 0 0 0 9px rgba(245,158,11,0.1), 0 8px 24px rgba(245,158,11,0.7); transform: scale(1.05); }
     }
 
     @media (pointer: coarse) or (max-width: 860px) {
       #mobile-controls {
         display: flex;
+      }
+
+      /* Herramientas: ocultar barra desktop, usar rueda táctil 2×2 */
+      #sst-toolbar {
+        display: none !important;
+      }
+      #game-canvas {
+        touch-action: none;
       }
 
       /* Barra de herramientas SST compacta flotante sobre la línea de pulgares */
@@ -1365,33 +1454,16 @@
         height: 15px;
       }
 
-      /* Radar y Zona en móvil sin colisiones */
+      /* Radar y Zona: ocultos en móvil para no tapar el juego */
       #minimap-container {
-        top: 50px;
-        right: 8px;
-        bottom: unset;
-        transform: scale(0.68);
-        transform-origin: top right;
-        border-radius: 14px;
-        padding: 6px;
+        display: none !important;
       }
       #zone-indicator {
-        top: 50px;
-        left: 8px;
-        bottom: unset;
-        max-width: 140px;
-        padding: 4px 8px;
+        display: none !important;
       }
-      .zone-badge {
-        font-size: 7.5px;
-        padding: 1px 4px;
-      }
-      .zone-title {
-        font-size: 10px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 125px;
+      /* Telemetría: también oculta en móvil (ya existe el HUD) */
+      #tool-telemetry-badge {
+        display: none !important;
       }
 
       /* Banner de tutorial móvil */
@@ -1416,53 +1488,80 @@
         display: none;
       }
 
-      /* Telemetría de sensores móvil */
+      /* Telemetría: arriba, debajo del HUD, fuera del área de controles */
       #tool-telemetry-badge {
-        bottom: 150px;
-        font-size: 11px;
-        padding: 4px 10px;
-        max-width: 88%;
+        top: 44px;
+        bottom: auto;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        font-size: 10px;
+        padding: 3px 10px;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* Prompt flotante: oculto en móvil, el botón de acción lo reemplaza */
+      .interaction-prompt {
+        display: none !important;
       }
 
       /* Diálogos y Modales Adaptativos */
       .hero-dialog,
       .modal-card {
-        padding: 16px 14px;
-        border-radius: 18px;
-        max-height: 88vh;
-        width: calc(100% - 16px);
+        padding: 20px 18px;
+        border-radius: 20px;
+        max-height: 92vh;
+        width: calc(100% - 12px);
       }
       .hero-title {
-        font-size: 19px;
+        font-size: 24px;
+        line-height: 1.2;
       }
       .hero-desc {
-        font-size: 12px;
-        line-height: 1.4;
+        font-size: 13.5px;
+        line-height: 1.5;
       }
       .categories-badges-strip {
-        gap: 5px;
+        gap: 7px;
       }
       .risk-tag {
-        font-size: 9.5px;
-        padding: 3px 8px;
+        font-size: 11px;
+        padding: 4px 10px;
       }
       .records-strip {
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
       }
       .rec-label {
-        font-size: 8.5px;
+        font-size: 9.5px;
       }
       .rec-val {
-        font-size: 13px;
+        font-size: 16px;
       }
+      /* Ocultar controles de teclado en dispositivos táctiles */
       .controls-guide {
-        gap: 6px;
+        display: none !important;
       }
       .guide-item {
-        padding: 6px 8px;
-        font-size: 10px;
+        display: none;
       }
+      /* Botones de inicio más grandes y cómodos en móvil */
+      .hero-actions-group {
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .btn-hero-launch {
+        padding: 18px 20px;
+        font-size: 16px;
+        border-radius: 18px;
+        gap: 12px;
+      }
+      .btn-hero-launch .btn-icon { font-size: 22px; }
+      .btn-hero-launch .btn-label { font-size: 16px; }
+      .btn-hero-launch .btn-sublabel { font-size: 12px; }
       .modal-hazard-hero {
         padding: 8px 10px;
         gap: 10px;
@@ -2211,13 +2310,29 @@
 
     <!-- Controles Móviles -->
     <div id="mobile-controls">
-      <div id="joystick-base">
-        <div id="joystick-thumb"></div>
+      <!-- Joystick izquierda -->
+      <div id="joystick-zone">
+        <div id="joystick-base">
+          <div id="joystick-ring"></div>
+          <div id="joystick-thumb">
+            <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M9 3v12M3 9h12" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <span class="joystick-hint">Mover</span>
       </div>
-      <button id="btn-mobile-action" aria-label="Inspeccionar condición insegura">
-        <span id="mobile-action-icon" style="font-size: 20px; line-height: 1;">🔍</span>
-        <span id="mobile-action-text">INSPECCIONAR</span>
-      </button>
+      <!-- Derecha: rueda 2x2 + botón acción -->
+      <div id="mobile-right-controls">
+        <div id="mobile-tool-wheel">
+          <button class="mobile-tool-btn active" data-tool="tablet"><span class="mobile-tool-icon">📋</span></button>
+          <button class="mobile-tool-btn" data-tool="sono"><span class="mobile-tool-icon">🔊</span></button>
+          <button class="mobile-tool-btn" data-tool="volt"><span class="mobile-tool-icon">⚡</span></button>
+          <button class="mobile-tool-btn" data-tool="lux"><span class="mobile-tool-icon">💡</span></button>
+        </div>
+        <button id="btn-mobile-action" aria-label="Acción">
+          <span id="mobile-action-icon">🔍</span>
+          <span id="mobile-action-text">ACCIÓN</span>
+        </button>
+      </div>
     </div>
 
     <!-- Modal de Inspección y Mitigación de Riesgos -->
@@ -3116,39 +3231,57 @@
     /* ==========================================================================
        1.5. GUÍA INTERACTIVA DE INDUCCIÓN SST (TUTORIAL PASO A PASO)
        ========================================================================== */
+    
+    // Detección de dispositivo táctil y Android
+    const IS_TOUCH = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+    const IS_ANDROID = /Android/i.test(navigator.userAgent);
+    const IS_MOBILE = IS_TOUCH && window.innerWidth <= 1024;
+    if (IS_MOBILE) document.body.classList.add('is-mobile');
+    if (IS_ANDROID) document.body.classList.add('is-android');
+const isMobileTutorial = (typeof IS_MOBILE !== 'undefined') && IS_MOBILE;
     const TUTORIAL_STEPS = {
       1: {
         stepNumber: 1,
-        title: '1. Desplazamiento Seguro en Planta',
-        desc: 'Usa <strong>[W][A][S][D]</strong>, las flechas o clic en el suelo para caminar por la senda segura hasta la <strong>baliza verde holográfica</strong>.',
+        title: '1. Desplazamiento en Planta',
+        desc: isMobileTutorial
+          ? '👆 <strong>Arrastra el joystick</strong> (círculo azul abajo-izquierda) para caminar hasta la <strong>baliza verde holográfica</strong>.'
+          : 'Usa <strong>[W][A][S][D]</strong>, las flechas o clic en el suelo para caminar por la senda segura hasta la <strong>baliza verde holográfica</strong>.',
         beacon: { x: 580, y: 660, label: 'BALIZA DE INDUCCIÓN' },
         progress: 20
       },
       2: {
         stepNumber: 2,
         title: '2. Sensores de Diagnóstico SST',
-        desc: 'Presiona la tecla <strong>[2]</strong> o haz clic en el <strong>Sonómetro</strong> (o <strong>[3] Voltímetro</strong>) en la barra inferior para medir factores de riesgo invisibles.',
+        desc: isMobileTutorial
+          ? '🔊 <strong>Toca el botón 🔊</strong> en la rueda de herramientas (abajo-derecha) para activar el Sonómetro y detectar peligros sonoros.'
+          : 'Presiona la tecla <strong>[2]</strong> o haz clic en el <strong>Sonómetro</strong> (o <strong>[3] Voltímetro</strong>) en la barra inferior para medir factores de riesgo invisibles.',
         beacon: null,
         progress: 40
       },
       3: {
         stepNumber: 3,
-        title: '3. Identificación e Inspección de Peligros',
-        desc: 'Camina hacia el <strong>Derrame Químico</strong> (marcado al norte) y presiona <strong>[E]</strong> o haz clic para abrir la evaluación de riesgo.',
+        title: '3. Identificar e Inspeccionar Peligros',
+        desc: isMobileTutorial
+          ? '⚠️ Muévete hacia el <strong>Derrame Químico</strong> al norte. Cuando aparezca el botón amarillo, tócalo para abrir la evaluación.'
+          : 'Camina hacia el <strong>Derrame Químico</strong> (marcado al norte) y presiona <strong>[E]</strong> o haz clic para abrir la evaluación de riesgo.',
         beacon: { x: 480, y: 350, label: 'DERRAME QUÍMICO' },
         progress: 60
       },
       4: {
         stepNumber: 4,
         title: '4. Jerarquía de Controles (ISO 45001)',
-        desc: 'Analiza la situación y selecciona la medida de control adecuada priorizando la intervención en la fuente (ISO 45001).',
+        desc: isMobileTutorial
+          ? '🎯 <strong>Toca una opción</strong> (A, B o C) y luego <strong>APLICAR MEDIDA CORRECTIVA</strong> para resolver el peligro.'
+          : 'Analiza la situación y selecciona la medida de control adecuada priorizando la intervención en la fuente (ISO 45001).',
         beacon: null,
         progress: 80
       },
       5: {
         stepNumber: 5,
         title: '5. ¡Inducción SST Culminada!',
-        desc: '¡Has dominado las competencias esenciales! Ahora estás listo para realizar la auditoría oficial de la planta completa.',
+        desc: isMobileTutorial
+          ? '🏆 ¡Excelente! Dominas joystick, sensores y reportes táctiles. Inicia la <strong>Auditoría Oficial</strong>.'
+          : '¡Has dominado las competencias esenciales! Ahora estás listo para realizar la auditoría oficial de la planta completa.',
         beacon: null,
         progress: 100
       }
@@ -5851,6 +5984,18 @@
       }
 
       bindToolEvents() {
+        // Rueda táctil de herramientas (2×2)
+        document.querySelectorAll('#mobile-tool-wheel .mobile-tool-btn').forEach(btn => {
+          btn.addEventListener('touchstart', (e) => {
+            if (e.cancelable) e.preventDefault();
+            const tool = btn.getAttribute('data-tool');
+            this.switchTool(tool);
+          }, { passive: false });
+          btn.addEventListener('click', () => {
+            const tool = btn.getAttribute('data-tool');
+            this.switchTool(tool);
+          });
+        });
         const toolBtns = document.querySelectorAll('#sst-toolbar .tool-btn');
         toolBtns.forEach(btn => {
           btn.addEventListener('click', () => {
@@ -5870,6 +6015,9 @@
       switchTool(toolId) {
         this.currentTool = toolId;
         document.querySelectorAll('#sst-toolbar .tool-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-tool') === toolId);
+        });
+        document.querySelectorAll('#mobile-tool-wheel .mobile-tool-btn').forEach(btn => {
           btn.classList.toggle('active', btn.getAttribute('data-tool') === toolId);
         });
         sstAudio.playToolSwitch(toolId);
@@ -6913,7 +7061,8 @@
           if (e.cancelable) e.preventDefault();
           for (let i = 0; i < e.changedTouches.length; i++) {
             const touch = e.changedTouches[i];
-            if (touchId === null) {
+            // Responde solo en la mitad izquierda de la pantalla
+            if (touchId === null && touch.clientX < window.innerWidth * 0.55) {
               touchId = touch.identifier;
               baseRect = joystickBase.getBoundingClientRect();
               updateJoystick(touch.clientX, touch.clientY);
@@ -6939,7 +7088,7 @@
             if (touch.identifier === touchId) {
               touchId = null;
               this.touchVector = { x: 0, y: 0 };
-              joystickThumb.style.transform = 'translate(0px, 0px)';
+              joystickThumb.style.transform = 'translate(-50%, -50%)';
               break;
             }
           }
@@ -6957,7 +7106,7 @@
           // Zona muerta de 8px para reposo cómodo del pulgar
           if (dist < 8) {
             this.touchVector = { x: 0, y: 0 };
-            joystickThumb.style.transform = 'translate(0px, 0px)';
+            joystickThumb.style.transform = 'translate(-50%, -50%)';
             return;
           }
 
@@ -6968,7 +7117,7 @@
             ny = (dy / dist) * maxRadius;
           }
 
-          joystickThumb.style.transform = `translate(${nx}px, ${ny}px)`;
+          joystickThumb.style.transform = `translate(calc(-50% + ${nx}px), calc(-50% + ${ny}px))`;
           this.touchVector = {
             x: nx / maxRadius,
             y: ny / maxRadius
